@@ -1,0 +1,43 @@
+cff-version: 1.2.0
+message: "If you use this dataset or code, please cite it as below."
+type: dataset
+title: "Thai e-commerce customer reviews of perfume and indigo-dyed products with opinion labels, and SG-HS workflow notebook"
+version: 1.0.0
+date-released: 2026-11-04
+abstract: >-
+  Two labelled datasets of Thai customer reviews collected from the Shopee and
+  Lazada marketplaces: 4,656 perfume reviews and 3,279 reviews of indigo-dyed
+  products, each labelled positive (1) or negative (0) by majority vote of three
+  experts. The repository also contains a Google Colab notebook that classifies
+  the reviews with Word2Vec embeddings (CBOW, Skip-gram, and Skip-gram with
+  hierarchical softmax) and CNN, BiLSTM and RNN classifiers.
+authors:
+  - family-names: Chantawat
+    given-names: Charuwat
+    affiliation: "Department of Educational Research and Development, Faculty of Education, Mahasarakham University, Thailand"
+  - family-names: Witchakool
+    given-names: Suwiwat
+    affiliation: "Department of Mathematics and Statistics, Faculty of Science and Information Technology, Sakon Nakhon Rajabhat University, Thailand"
+  - family-names: Choompol
+    given-names: Atchara
+    affiliation: "Department of Computer Engineering, Faculty of Engineering and Industrial Technology, Kalasin University, Thailand"
+  - family-names: Saensuk
+    given-names: Mongkol
+    affiliation: "Department of Mathematics and Statistics, Faculty of Science and Information Technology, Sakon Nakhon Rajabhat University, Thailand"
+    email: mongkol@snru.ac.th
+repository-code: "https://github.com/mongkol-saensuk/thai-ecommerce-reviews-sghs"
+url: "https://github.com/mongkol-saensuk/thai-ecommerce-reviews-sghs"
+license:
+  - CC-BY-4.0
+  - MIT
+keywords:
+  - Thai
+  - sentiment analysis
+  - opinion classification
+  - customer reviews
+  - e-commerce
+  - Word2Vec
+  - Skip-gram
+  - hierarchical softmax
+  - deep learning
+  - dataset
