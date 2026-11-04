@@ -39,7 +39,7 @@ thai-ecommerce-reviews-sghs/
 ├── notebooks/
 │   └── SG_HS_MethodsX_experiments.ipynb      experiments of the article (Steps 3.2–6, 108 runs)
 ├── scripts/
-│   ├── clean_review.py                       cleaning rules, for cleaning new reviews
+│   ├── clean_review.py                       cleaning rules of the released reviews
 │   └── build_labeled_csv.py                  rebuilds the CSV files, statistics and checksums
 ├── CITATION.cff
 ├── LICENSE                                   MIT (code)
@@ -82,20 +82,26 @@ Three experts labelled every review independently. The final label is the majori
 
 ### Cleaning
 
-The released reviews are already cleaned: digits, Latin letters, special symbols, emoji and punctuation were removed, and Thai characters were kept. Spelling errors and repeated characters written by customers (for example เร็วๆๆๆ) were **not** corrected.
+The released reviews are already cleaned. Python's `re.sub(pattern, "", text)` was applied three times to each review, deleting every matched character:
 
-To clean new reviews in the same way before classifying them, use [`scripts/clean_review.py`](scripts/clean_review.py):
+| Pattern | Removes |
+|:--|:--|
+| `[0-9]` | Arabic digits |
+| `[A-Za-z]` | Latin (English) letters |
+| `[^\u0E00-\u0E7F\s]` | any character outside the Thai Unicode block (U+0E00–U+0E7F) other than whitespace: special symbols, emoji and punctuation |
+
+Thai characters were kept unchanged. No Thai normalisation was applied, so misspellings, repeated characters (for example ค่าา and เร็วๆๆๆ) and duplicated vowel or tone marks remain as written. Thai digits (๐–๙) are not matched by `[0-9]`.
+
+The same rules are in [`scripts/clean_review.py`](scripts/clean_review.py), for cleaning new reviews in the same way:
 
 ```python
 import re
-from pythainlp.util import normalize
 
-def clean_review(text: str) -> str:
-    text = normalize(text)                              # normalise Thai character order
-    text = re.sub(r"[0-9\u0E50-\u0E59]", " ", text)   # Arabic and Thai digits
-    text = re.sub(r"[A-Za-z]", " ", text)               # Latin letters
-    text = re.sub(r"[^\u0E00-\u0E7F\s]", " ", text)    # symbols, emoji, punctuation
-    return re.sub(r"\s+", " ", text).strip()
+def clean_review(text) -> str:
+    text = re.sub(r"[0-9]", "", str(text))           # Arabic digits
+    text = re.sub(r"[A-Za-z]", "", text)             # Latin letters
+    text = re.sub(r"[^\u0E00-\u0E7F\s]", "", text)   # symbols, emoji, punctuation
+    return text.strip()
 ```
 
 ### Data quality notes
